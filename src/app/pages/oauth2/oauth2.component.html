@@ -1,7 +1,64 @@
 <div class="page">
 
-  <button mat-raised-button (click)="setBogusState()">Set Bogus State</button>
-  <br/>
-  state test: {{ state }}
+  <mat-expansion-panel [expanded]="loginExpanded">
+
+    <mat-expansion-panel-header color="primary">
+      <mat-panel-title>Login</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-card-content>
+
+      <form #loginForm="ngForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="standard">
+          <mat-label>userid</mat-label>
+          <input matInput placeholder="userid" id="userid" name="userid" [(ngModel)]="model.userid" required>
+        </mat-form-field>
+
+        <br />
+        <mat-form-field appearance="standard">
+          <mat-label>password</mat-label>
+          <input matInput placeholder="password" type="password" id="password" name="password"
+            [(ngModel)]="model.password" required>
+        </mat-form-field><br />
+
+        <mat-action-row>
+          <button mat-raised-button type="submit" [disabled]="loggedIn" class="btn btn-success">Login</button>
+        </mat-action-row>
+      </form>
+
+    </mat-card-content>
+  </mat-expansion-panel>
+
+  <br />
+
+  <mat-expansion-panel [expanded]="tokenExpanded">
+
+    <mat-expansion-panel-header color="primary">
+      <mat-panel-title>Token</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card-content>
+      <div *ngIf="authTokens">
+        <app-token [tokens]="authTokens"></app-token>
+      </div>
+    </mat-card-content>
+
+  </mat-expansion-panel>
+
+  <br />
+
+  <mat-expansion-panel [expanded]="dataExpanded">
+
+    <mat-expansion-panel-header color="primary">
+      <mat-panel-title>Data</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-expansion-panel>
+
 
 </div>
+
+<!--
+  <button mat-raised-button (click)="logout()" color="warn" [disabled]="!loggedIn"
+            class="button-space">Logout</button>
+-->
