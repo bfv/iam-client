@@ -27,7 +27,7 @@ export class TokenComponent implements OnInit {
 
     const decoded = atob(section);
     const formatted = JSON.stringify(JSON.parse(decoded), null, 2);
-    console.log(formatted);
+
     return formatted;
   }
 }

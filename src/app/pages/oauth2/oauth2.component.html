@@ -51,8 +51,16 @@
     <mat-expansion-panel-header color="primary">
       <mat-panel-title>Data</mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-card-content>
-    </mat-card-content>
+    <div *ngIf="this.loggedIn">
+      <mat-action-row>
+        <button mat-raised-button class="btn btn-success" (click)="get()">GET /get</button>
+      </mat-action-row>
+      <mat-card-content>
+        <pre>
+{{ data }}
+    </pre>
+      </mat-card-content>
+    </div>
   </mat-expansion-panel>
 
 

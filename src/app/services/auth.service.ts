@@ -29,7 +29,7 @@ export class AuthService {
           }
         }
       ).subscribe(data => {
-        console.log(data);
+
         this.accessToken = data['access_token'];
         this.test(data);
         this.fullLooginResponse = data;
