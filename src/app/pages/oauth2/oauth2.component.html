@@ -33,9 +33,16 @@
 
   <mat-expansion-panel [expanded]="tokenExpanded">
 
+    <div *ngIf="this.loggedIn">
+      <mat-action-row>
+        <button mat-raised-button (click)="logout()" color="warn" [disabled]="!loggedIn">Logout</button>
+      </mat-action-row>
+    </div>
+
     <mat-expansion-panel-header color="primary">
       <mat-panel-title>Token</mat-panel-title>
     </mat-expansion-panel-header>
+
     <mat-card-content>
       <div *ngIf="authTokens">
         <app-token [tokens]="authTokens"></app-token>
@@ -67,6 +74,4 @@
 </div>
 
 <!--
-  <button mat-raised-button (click)="logout()" color="warn" [disabled]="!loggedIn"
-            class="button-space">Logout</button>
 -->

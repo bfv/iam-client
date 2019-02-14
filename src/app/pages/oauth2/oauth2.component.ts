@@ -18,7 +18,7 @@ export class Oauth2Component implements OnInit {
   public state = '';
   public loggedIn = false;
   public loginExpanded = true;
-  public tokenExpanded = true;
+  public tokenExpanded = false;
   public dataExpanded = false;
   public model = new LoginData();
 
@@ -34,7 +34,11 @@ export class Oauth2Component implements OnInit {
   }
 
   logout() {
+    this.auth.logout();
     this.loggedIn = false;
+    this.tokenExpanded = false;
+    this.loginExpanded = true;
+    this.authTokens = null;
   }
 
   submit() {
@@ -43,7 +47,7 @@ export class Oauth2Component implements OnInit {
     this.auth.login(this.model.userid, this.model.password).then(result => {
       this.loginExpanded = false;
       this.dataExpanded = true;
-      this.authTokens = this.auth.fullLooginResponse;
+      this.authTokens = this.auth.fullLoginResponse;
       this.loggedIn = true;
       this.snackbar.open('login successful!', null, {
         duration: 1500
@@ -52,8 +56,8 @@ export class Oauth2Component implements OnInit {
   }
 
   get() {
-    console.log('get!!!');
-    this.backend.get(true)
+
+    this.backend.get(false)
       .subscribe(data => {
         this.data = JSON.stringify(data, null, 2);
       });
