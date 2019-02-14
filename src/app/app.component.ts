@@ -14,6 +14,7 @@ export class AppComponent {
     { link: '/no-auth', title: 'No Auth' },
     { link: '/basic', title: 'Basic' },
     { link: '/oauth2', title: 'OAuth2' },
+    { link: '/implicit', title: 'Implicit' },
   ];
 
   constructor(private backend: PasoeBackendService) {}

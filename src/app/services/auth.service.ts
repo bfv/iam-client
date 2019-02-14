@@ -8,10 +8,10 @@ import { ThrowStmt } from '@angular/compiler';
 export class AuthService {
 
   public readonly authServerUrl = 'http://localhost:8081';
-  public readonly loginUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/token';
-
+  public readonly tokenUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/token';
+  public readonly authUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/auth';
   public accessToken = '';
-  public fullLooginResponse: Object;
+  public fullLoginResponse: Object;
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class AuthService {
 
     const promise = new Promise<boolean>((resolve, reject) => {
       this.http.post(
-        this.loginUrl,
+        this.tokenUrl,
         `grant_type=password&username=${userid}&password=${password}&client_id=asref1-test-client&scope=`,
         {
           headers: {
@@ -31,8 +31,8 @@ export class AuthService {
       ).subscribe(data => {
 
         this.accessToken = data['access_token'];
-        this.test(data);
-        this.fullLooginResponse = data;
+        this.fullLoginResponse = data;
+
         resolve(true);
       }, error => {
         reject(error);
@@ -44,10 +44,13 @@ export class AuthService {
   }
 
   logout() {
-
+    this.accessToken = '';
+    this.fullLoginResponse = null;
   }
 
-  private test(token: Object) {
-    console.log('not-before-policy:', token['not-before-policy']);
+  implicitLogin() {
+
+    console.log('implicit login attempt');
+
   }
 }

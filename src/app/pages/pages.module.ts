@@ -7,12 +7,13 @@ import { BasicComponent } from './basic/basic.component';
 import { Oauth2Component } from './oauth2/oauth2.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ComponentsModule } from '../modules/components/components.module';
+import { ImplicitComponent } from './implicit/implicit.component';
 
 @NgModule({
-  declarations: [NoAuthComponent, BasicComponent, Oauth2Component, PageNotFoundComponent],
+  declarations: [NoAuthComponent, BasicComponent, Oauth2Component, PageNotFoundComponent, ImplicitComponent],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
     FormsModule,
     UiModule,
   ]
