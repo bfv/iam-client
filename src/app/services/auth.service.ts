@@ -1,19 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
+import { KeycloakService } from 'keycloak-angular';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public readonly authServerUrl = 'http://localhost:8081';
-  public readonly tokenUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/token';
-  public readonly authUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/auth';
-  public accessToken = '';
-  public fullLoginResponse: Object;
+  readonly authServerUrl = 'http://localhost:8081';
+  readonly tokenUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/token';
+  readonly authUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/auth';
+  accessToken = '';
+  fullLoginResponse: Object;
 
-  constructor(private http: HttpClient) { }
+  private loggedInSource = new BehaviorSubject<boolean>(false);
+  loggedIn = this.loggedInSource.asObservable();
+
+  constructor(private http: HttpClient, private keycloak: KeycloakService) {
+
+    this.keycloak.init(
+      {
+        config: {
+          clientId: 'angular-test-client',
+          realm: 'asref1',
+          url: 'http://keycloak.bfv.io:8081/auth'
+        },
+        initOptions: {
+          flow: 'implicit'
+        }
+      }).then(blabla => {
+
+        this.keycloak.isLoggedIn().then(loggedIn => {
+          this.setLoggedIn(loggedIn);
+        });
+      });
+  }
 
   login(userid: string, password: string): Promise<boolean> {
 
@@ -48,9 +71,15 @@ export class AuthService {
     this.fullLoginResponse = null;
   }
 
-  implicitLogin() {
+  implicitLogin(): void {
+    const promise = this.keycloak.login();
+  }
 
-    console.log('implicit login attempt');
+  implicitLogout() {
+    this.keycloak.logout();
+  }
 
+  private setLoggedIn(loggedIn: boolean) {
+    this.loggedInSource.next(loggedIn);
   }
 }

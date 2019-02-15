@@ -1,0 +1,5 @@
+{
+    "url": "http://keycloak.bfv.io:8081/auth",
+    "realm": "asref1",
+    "clientId": "angular-test-client"
+}

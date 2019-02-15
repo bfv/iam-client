@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+
+import { KeycloakAngularModule } from 'keycloak-angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +18,7 @@ import { ComponentsModule } from './modules/components/components.module';
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
+    KeycloakAngularModule,
     UiModule,
     PagesModule,
     ComponentsModule,
