@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject } from 'rxjs';
+import { isFulfilled } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,13 @@ export class AuthService {
         },
         initOptions: {
           flow: 'implicit'
-        }
-      }).then(blabla => {
+        },
+        bearerExcludedUrls: [
+          'http://localhost:15900/noauth',
+          'http://localhost:15900/oauth2',
+          'http://localhost:8081/auth/realms/asref1/protocol/openid-connect/token'
+        ]
+      }).then(() => {
 
         this.keycloak.isLoggedIn().then(loggedIn => {
           this.setLoggedIn(loggedIn);
