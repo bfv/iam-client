@@ -14,10 +14,15 @@ export class AuthService {
   readonly tokenUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/token';
   readonly authUrl = this.authServerUrl + '/auth/realms/asref1/protocol/openid-connect/auth';
   accessToken = '';
+
+
   fullLoginResponse: Object;
 
   private loggedInSource = new BehaviorSubject<boolean>(false);
   loggedIn = this.loggedInSource.asObservable();
+
+  private implicitAccessTokenSource = new BehaviorSubject<string>('');
+  implicitAccessToken = this.implicitAccessTokenSource.asObservable();
 
   constructor(private http: HttpClient, private keycloak: KeycloakService) {
 
@@ -33,13 +38,18 @@ export class AuthService {
         },
         bearerExcludedUrls: [
           'http://localhost:15900/noauth',
-          'http://localhost:15900/oauth2',
+          'http://localhost:15900/oauth2/web/get',
           'http://localhost:8081/auth/realms/asref1/protocol/openid-connect/token'
         ]
       }).then(() => {
 
         this.keycloak.isLoggedIn().then(loggedIn => {
           this.setLoggedIn(loggedIn);
+          if (loggedIn) {
+            this.keycloak.getToken().then(token => {
+              this.implicitAccessTokenSource.next(token);
+            });
+          }
         });
       });
   }

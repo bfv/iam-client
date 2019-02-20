@@ -33,4 +33,9 @@ export class PasoeOauth2BackendService {
 
     return observable;
   }
+
+  getCustomersImplicit(): Observable<Object> {
+    const observable = this.http.get(this.baseUrl + '/oauth2/web/customer');
+    return observable;
+  }
 }

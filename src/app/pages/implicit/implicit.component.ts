@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { PasoeOauth2BackendService } from 'src/app/services/pasoe-oauth2-backend.service';
 
 @Component({
   selector: 'app-implicit',
@@ -9,13 +10,18 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ImplicitComponent implements OnInit {
 
   loggedIn = false;
+  response = '';
+  accessToken: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private backend: PasoeOauth2BackendService) { }
 
   ngOnInit() {
     this.auth.loggedIn.subscribe(loggedIn => {
       this.loggedIn = loggedIn;
     });
+    this.auth.implicitAccessToken.subscribe(token => {
+      this.accessToken = token;
+    })
   }
 
   login() {
@@ -24,5 +30,15 @@ export class ImplicitComponent implements OnInit {
 
   logout() {
     this.auth.implicitLogout();
+  }
+
+  getCustomers() {
+    this.backend.getCustomersImplicit()
+      .subscribe(data => {
+        this.response = JSON.stringify(data, null, 2);
+      },
+      error => {
+        this.response = 'error fetching data: ' + error;
+      });
   }
 }

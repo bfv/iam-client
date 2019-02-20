@@ -1,4 +1,16 @@
 <div class="page">
   <button mat-raised-button (click)="login()" color="primary" *ngIf="!loggedIn">Login</button>
   <button mat-raised-button (click)="logout()" color="warn" *ngIf="loggedIn">Logout</button>
+  <button (click)="getCustomers()" mat-raised-button>GET /customers</button>
+
+  <mat-expansion-panel [expanded]="accessToken != ''">
+    <mat-expansion-panel-header color="primary">
+      <mat-panel-title>Token</mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-token [tokens]="accessToken" *ngIf="accessToken"></app-token>
+  </mat-expansion-panel>
+
+  <pre>
+  {{ response }}
+</pre>
 </div>

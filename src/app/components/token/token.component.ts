@@ -16,7 +16,13 @@ export class TokenComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.accessToken = this.tokens['access_token'];
+
+    if (this.tokens['access_token']) {
+      this.accessToken = this.tokens['access_token'];
+    }
+    else {
+      this.accessToken = <string>this.tokens;
+    }
 
     const sections = this.accessToken.split('.');
     this.header = this.stringify(sections[0]);
