@@ -28,7 +28,7 @@ export class PasoeBackendService {
     return observable;
   }
 
-  getCustomers(includeOpenEdgeInfo = false): Observable<Object> {
+  getCustomers(): Observable<Object> {
 
     const observable = this.http.get(this.baseUrl + '/noauth/web/customer');
 

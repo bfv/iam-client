@@ -19,16 +19,5 @@ export class AppComponent {
 
   constructor(private backend: PasoeBackendService) {}
 
-  test() {
-    // this.backend.get(true)
-    this.backend.getCustomers(true)
-      .subscribe(data => {
-        this.response = JSON.stringify(data, null, 2);
-      },
-      error => {
-        this.response = 'error fetching data: ' + error;
-      });
-  }
-
 }
 

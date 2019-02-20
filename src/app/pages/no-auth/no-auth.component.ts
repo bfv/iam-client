@@ -17,7 +17,7 @@ export class NoAuthComponent implements OnInit {
 
   getCustomers() {
 
-    this.backend.getCustomers(true)
+    this.backend.getCustomers()
       .subscribe(data => {
         this.response = JSON.stringify(data, null, 2);
       },
