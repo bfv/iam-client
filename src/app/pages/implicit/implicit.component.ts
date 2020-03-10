@@ -21,7 +21,7 @@ export class ImplicitComponent implements OnInit {
     });
     this.auth.implicitAccessToken.subscribe(token => {
       this.accessToken = token;
-    })
+    });
   }
 
   login() {
