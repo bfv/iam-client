@@ -12,8 +12,7 @@ export class AppComponent {
   response = '';
   tabs = [
     { link: '/no-auth', title: 'No Auth' },
-    { link: '/basic', title: 'Basic' },
-    { link: '/oauth2', title: 'OAuth2' },
+    { link: '/direct', title: 'Direct' },
     { link: '/implicit', title: 'Implicit' },
   ];
 
