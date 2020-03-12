@@ -10,7 +10,15 @@
     <app-token [tokens]="accessToken" *ngIf="accessToken"></app-token>
   </mat-expansion-panel>
 
-  <pre>
-  {{ response }}
-</pre>
+  <mat-expansion-panel [expanded]="dataExpanded">
+    <mat-expansion-panel-header color="primary">
+      <mat-panel-title>Data</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card-content>
+      <pre>
+          {{ response }}
+        </pre>
+    </mat-card-content>
+  </mat-expansion-panel>
+
 </div>

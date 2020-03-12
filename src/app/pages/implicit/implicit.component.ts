@@ -12,6 +12,7 @@ export class ImplicitComponent implements OnInit {
   loggedIn = false;
   response = '';
   accessToken: string;
+  dataExpanded = false;
 
   constructor(private auth: AuthService, private backend: PasoeOauth2BackendService) { }
 
@@ -36,9 +37,11 @@ export class ImplicitComponent implements OnInit {
     this.backend.getCustomersImplicit()
       .subscribe(data => {
         this.response = JSON.stringify(data, null, 2);
+        this.dataExpanded = true;
       },
       error => {
         this.response = 'error fetching data: ' + error;
+        console.log('error:', error);
       });
   }
 }
